@@ -78,14 +78,20 @@ export function HomeClient({ toilets }: HomeClientProps) {
   }
 
   const filtered = useMemo(() => {
-    return toilets.filter((toilet) => {
-      if (accessibleOnly && !toilet.accessible) return false;
-      if (babyCareOnly && !toilet.babyCare) return false;
-      if (avoidOdor && toilet.tags.some((tag) => tag.tagKey === 'odor')) return false;
-      if (toilet.cleanlinessScore < minCleanliness) return false;
-      return true;
-    });
-  }, [accessibleOnly, avoidOdor, babyCareOnly, minCleanliness, toilets]);
+    return toilets
+      .filter((toilet) => {
+        if (accessibleOnly && !toilet.accessible) return false;
+        if (babyCareOnly && !toilet.babyCare) return false;
+        if (avoidOdor && toilet.tags.some((tag) => tag.tagKey === 'odor')) return false;
+        if (toilet.cleanlinessScore < minCleanliness) return false;
+        return true;
+      })
+      .sort((a, b) => {
+        const distA = haversineDistance(userLocation, { lat: a.latitude, lng: a.longitude });
+        const distB = haversineDistance(userLocation, { lat: b.latitude, lng: b.longitude });
+        return distA - distB;
+      });
+  }, [accessibleOnly, avoidOdor, babyCareOnly, minCleanliness, toilets, userLocation]);
 
   const selected = filtered.find((t) => t.id === selectedId) ?? filtered[0] ?? null;
 
