@@ -1,0 +1,32 @@
+{
+  "name": "hk-toilet-finder",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "import:toilets": "tsx scripts/import-toilets.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "leaflet": "^1.9.4",
+    "next": "^16.2.6",
+    "prisma": "^5.22.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/leaflet": "^1.9.21",
+    "@types/node": "^25.9.1",
+    "@types/react": "19.2.15",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "^16.2.6",
+    "tsx": "^4.22.3",
+    "typescript": "^6.0.3"
+  }
+}

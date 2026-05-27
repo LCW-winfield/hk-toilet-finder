@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Toilet {
+  id               String            @id @default(cuid())
+  nameZh           String
+  nameEn           String?
+  districtZh       String
+  districtEn       String?
+  addressZh        String
+  addressEn        String?
+  latitude         Float
+  longitude        Float
+  openingHours     String?
+  accessible       Boolean           @default(false)
+  babyCare         Boolean           @default(false)
+  cleanlinessScore Float             @default(0)
+  sourceType       String            @default("government")
+  status           String            @default("active")
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  tags             ToiletTag[]
+  submissions      ToiletSubmission[]
+
+  @@index([districtZh])
+  @@index([latitude, longitude])
+}
+
+model ToiletTag {
+  id        String   @id @default(cuid())
+  toiletId   String
+  tagKey     String
+  createdAt  DateTime @default(now())
+  toilet     Toilet   @relation(fields: [toiletId], references: [id], onDelete: Cascade)
+
+  @@index([toiletId])
+  @@index([tagKey])
+}
+
+model ToiletSubmission {
+  id             String   @id @default(cuid())
+  submissionType String
+  targetToiletId String?
+  nameZh         String
+  nameEn         String?
+  addressZh      String
+  addressEn      String?
+  districtZh     String
+  districtEn     String?
+  latitude       Float
+  longitude      Float
+  openingHours   String?
+  accessible     Boolean  @default(false)
+  babyCare       Boolean  @default(false)
+  note           String?
+  status         String   @default("pending")
+  createdAt      DateTime @default(now())
+  targetToilet   Toilet?  @relation(fields: [targetToiletId], references: [id], onDelete: SetNull)
+
+  @@index([status])
+  @@index([targetToiletId])
+}

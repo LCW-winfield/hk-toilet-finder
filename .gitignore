@@ -1,0 +1,9 @@
+node_modules/
+.next/
+dev.db
+data/raw/
+.env
+*.tmp
+Projectdatarawtoilethk_raw.html
+.claude/settings.local.json
+Test.py
