@@ -1,8 +1,8 @@
 node_modules/
 .next/
 dev.db
-data/raw/
 *.tmp
 Projectdatarawtoilethk_raw.html
 .claude/settings.local.json
 Test.py
+data/raw/*.html
