@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
@@ -56,6 +56,21 @@ export function HomeClient({ toilets }: HomeClientProps) {
   const [routeMeta, setRouteMeta] = useState('');
 
   const dict = translations[locale];
+
+  // Auto-locate on mount
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          setUserLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+        },
+        () => {
+          // keep default location
+        },
+        { enableHighAccuracy: true, timeout: 5000 }
+      );
+    }
+  }, []);
 
   function tagLabel(tagKey: string) {
     const lookup = translations[locale] as Record<string, unknown>;
