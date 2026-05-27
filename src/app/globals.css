@@ -261,10 +261,57 @@ textarea {
 @media (max-width: 1080px) {
   .page-shell {
     grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
   }
 
   .sidebar {
     border-right: none;
     border-bottom: 1px solid var(--border);
+  }
+}
+
+@media (max-width: 720px) {
+  .site-header {
+    padding: 12px 16px;
+  }
+
+  .site-brand {
+    font-size: 16px;
+  }
+
+  .site-nav {
+    gap: 12px;
+    font-size: 13px;
+  }
+
+  .page-shell {
+    grid-template-columns: 1fr;
+    grid-template-rows: 50vh 1fr;
+    height: calc(100vh - 53px);
+  }
+
+  .sidebar {
+    padding: 12px;
+    gap: 10px;
+    max-height: none;
+    overflow-y: auto;
+  }
+
+  .map-pane {
+    padding: 10px;
+  }
+
+  .map-card {
+    border-radius: 16px;
+    padding: 4px;
+  }
+
+  .map-surface {
+    border-radius: 14px;
+  }
+
+  .panel {
+    border-radius: 14px;
+    padding: 12px;
   }
 }
